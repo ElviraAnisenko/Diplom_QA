@@ -39,7 +39,7 @@ systemProperty 'db.url', System.getProperty('db.url','jdbc:mysql://localhost:330
 В файле `build.gradle`  указываем настройки:
 
 `test {
-systemProperty 'db.url', System.getProperty('db.url','jdbc:postgresql://localhost:5432/ap')
+systemProperty 'db.url', System.getProperty('db.url','jdbc:postgresql://localhost:5432/app')
 }`
 
 В командной строке для запуска сервиса вводим в терминале команду:  `java -jar ./artifacts/aqa-shop.jar -P:jdbc.url=jdbc:postgresql://localhost:5432/app  -port=8080`.
