@@ -48,21 +48,18 @@ public class DataGenerator {
         int second = new Random().ints(1_000, 9999).findFirst().getAsInt();
         int third = new Random().ints(1_000, 9999).findFirst().getAsInt();
         int fourth = new Random().ints(1_000, 9999).findFirst().getAsInt();
-        String card16Symbol = String.valueOf(first) + String.valueOf(second) + String.valueOf(third) + String.valueOf(fourth);
-        return card16Symbol;
-        //return new Faker().finance().creditCard(CreditCardType.VISA);
+        return String.valueOf(first) + String.valueOf(second) + String.valueOf(third) + String.valueOf(fourth);
+
     }
 
     public static String generateCardWith17SymbolAtBeginning(String approvednumberCard) {
         String firstSymbol = String.valueOf(new Random().nextInt(10));
-        String cardNumber17SymbolAtBeginning = firstSymbol + approvednumberCard;
-        return cardNumber17SymbolAtBeginning;
+        return firstSymbol + approvednumberCard;
     }
 
     public static String generateCardWith17SymbolInEnd(String approvednumberCard) {
         String lastSymbol = String.valueOf(new Random().nextInt(10));
-        String cardNumber17SymbolInEnd = approvednumberCard + lastSymbol;
-        return cardNumber17SymbolInEnd;
+        return approvednumberCard + lastSymbol;
     }
 
     public static List<String> generateStringWithInvalidSymbol() {
@@ -76,8 +73,7 @@ public class DataGenerator {
     }
 
     public static String generateCardWith16InvalidSymbol(List<String> list) {
-        String cardInvalidSymbol = (String.join("", list)).substring(0, 16);
-        return cardInvalidSymbol;
+        return (String.join("", list)).substring(0, 16);
 
     }
 
@@ -85,8 +81,7 @@ public class DataGenerator {
     public static String generateCardLess16Symbol() {
         String cardNumber16Symbol = new Faker().finance().creditCard(CreditCardType.VISA);
         int lenghtCard = new Random().nextInt(14) + 1;
-        String cardNumberLess16Symbol = cardNumber16Symbol.substring(0, lenghtCard);
-        return cardNumberLess16Symbol;
+        return cardNumber16Symbol.substring(0, lenghtCard);
     }
 
 
@@ -94,51 +89,42 @@ public class DataGenerator {
 
     public static String generateValidDateCard() {
         int plusMonths = new Random().nextInt(72);
-        String validDate = LocalDateTime.now().plusMonths(plusMonths).format(DateTimeFormatter.ofPattern("MM.yy"));
-        return validDate;
+        return LocalDateTime.now().plusMonths(plusMonths).format(DateTimeFormatter.ofPattern("MM.yy"));
     }
 
     public static String generateDateExpiredCard() {
         int minusMonths = new Random().nextInt(100) + 1;
-        String expiredDate = LocalDateTime.now().minusMonths(minusMonths).format(DateTimeFormatter.ofPattern("MM.yy"));
-        return expiredDate;
+        return LocalDateTime.now().minusMonths(minusMonths).format(DateTimeFormatter.ofPattern("MM.yy"));
     }
 
     public static String generateCardWithNotExistDate() {
         int months = new Random().ints(73, 900).findFirst().getAsInt();
-        String notExistDate = LocalDateTime.now().plusMonths(months).format(DateTimeFormatter.ofPattern("MM.yy"));
-        return notExistDate;
+        return LocalDateTime.now().plusMonths(months).format(DateTimeFormatter.ofPattern("MM.yy"));
     }
 
     public static String getMonthCard(String date) {
-        String monthCard = date.substring(0, 2);
-        return monthCard;
+        return date.substring(0, 2);
     }
 
     public static String getYearCard(String date) {
-        String yearCard = date.substring(3, 5);
-        return yearCard;
+        return date.substring(3, 5);
     }
 
     public static String generateYearCard4Symbol() {
         String yearCard = String.valueOf(LocalDateTime.now().plusMonths(12).format(DateTimeFormatter.ofPattern("MM.yyyy")));
-        String yearCard4Symbol = yearCard.substring(3, 7);
-        return yearCard4Symbol;
+        return yearCard.substring(3, 7);
     }
 
     public static String generateMonthOrYear1Symbol() {
-        String monthOrYear1Symbol = String.valueOf(new Random().nextInt(9) + 1);
-        return monthOrYear1Symbol;
+        return String.valueOf(new Random().nextInt(9) + 1);
     }
 
-    public static String generateMonthMore13() {
-        String monthMore13 = String.valueOf(new Random().ints(13, 100));
-        return monthMore13;
+    public static String generateMonthMore12() {
+        return String.valueOf(new Random().ints(13, 100));
     }
 
     public static String generateMonthOrYearWithInvalidSymbol(List<String> list) {
-        String yearOrMonthInvalidSymbol = (String.join("", list)).substring(0, 2);
-        return yearOrMonthInvalidSymbol;
+        return (String.join("", list)).substring(0, 2);
     }
 
 
@@ -147,8 +133,7 @@ public class DataGenerator {
     public static String generateNameOfHolderCard() {
         String name = new Faker().name().fullName();
         String symbol = String.valueOf(new Random().nextInt(1000));
-        String nameSymbol = name + " " + symbol;
-        return nameSymbol;
+        return name + " " + symbol;
     }
 
     // генерация значений для поля "CVC/CVV".
@@ -162,15 +147,14 @@ public class DataGenerator {
     }
 
     public static String generateCVCWithInvalidSymbol(List<String> list) {
-        String cvcInvalidSymbol = (String.join("", list)).substring(0, 3);
-        return cvcInvalidSymbol;
+        return (String.join("", list)).substring(0, 3);
     }
 
     @Value
     public static class Date {
         String number;
-        String year;
         String month;
+        String year;
         String holder;
         String cvc;
     }
@@ -180,7 +164,7 @@ public class DataGenerator {
     }
 
     public static Date generateValidField(String approvednumberCard) {
-        return new Date(approvednumberCard, getYearCard(generateValidDateCard()), getMonthCard(generateValidDateCard()), generateNameOfHolderCard(), generateValidCVC());
+        return new Date(approvednumberCard, getMonthCard(generateValidDateCard()), getYearCard(generateValidDateCard()), generateNameOfHolderCard(), generateValidCVC());
     }
 
 

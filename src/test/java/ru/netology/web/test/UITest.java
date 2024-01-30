@@ -2,10 +2,9 @@ package ru.netology.web.test;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.junit5.SoftAssertsExtension;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import ru.netology.web.data.DataGenerator;
 import ru.netology.web.page.PaymentPage;
@@ -19,6 +18,7 @@ public class UITest {
     static SoftAssertsExtension softAsserts = new SoftAssertsExtension();
     PaymentPage paymentPage = new PaymentPage();
     DataGenerator dataGenerator = new DataGenerator();
+
 
     @BeforeEach
     void setup() {
@@ -360,7 +360,7 @@ public class UITest {
     void sendRequestWithMonthMore12InPayForm() {
         paymentPage.openFormToPay();
         var number = dataGenerator.getApprovednumberCard();
-        var month = DataGenerator.generateMonthMore13();
+        var month = DataGenerator.generateMonthMore12();
         var year = DataGenerator.getYearCard(DataGenerator.generateValidDateCard());
         var holder = DataGenerator.generateNameOfHolderCard();
         var cvc = DataGenerator.generateValidCVC();
@@ -373,7 +373,7 @@ public class UITest {
     void sendRequestWithMonthMore12InPayCreditForm() {
         paymentPage.openFormToPayCredit();
         var number = dataGenerator.getApprovednumberCard();
-        var month = DataGenerator.generateMonthMore13();
+        var month = DataGenerator.generateMonthMore12();
         var year = DataGenerator.getYearCard(DataGenerator.generateValidDateCard());
         var holder = DataGenerator.generateNameOfHolderCard();
         var cvc = DataGenerator.generateValidCVC();
@@ -644,17 +644,18 @@ public class UITest {
 
     @Test
     @DisplayName("Сценарий 1.26 Запрос на покупку тура с пустыми полями анкеты, а затем с валидными данными без перезагрузки страницы (переход к форме через кнопку 'Купить')")
-    void sendRequestWithEmptyAllFieldAndThenValidDataInPayForm1() {
+    void sendRequestWithEmptyAllFieldAndThenValidDataInPayForm() {
         Configuration.assertionMode = SOFT;
-        paymentPage.openFormToPayCredit();
+        paymentPage.openFormToPay();
         var emptyField = DataGenerator.generateAllEmptyField();
         var validField = DataGenerator.generateValidField(dataGenerator.getApprovednumberCard());
         paymentPage.fillFormWithEmptyAllFieldAndThenValidData(emptyField, validField);
+        sleep(1000);
     }
 
     @Test
     @DisplayName("Сценарий 1.26 Запрос на покупку тура с пустыми полями анкеты, а затем с валидными данными без перезагрузки страницы (переход к форме через кнопку 'Купить в кредит')")
-    void sendRequestWithEmptyAllFieldAndThenValidDataInPayCreditForm1() {
+    void sendRequestWithEmptyAllFieldAndThenValidDataInPayCreditForm() {
         Configuration.assertionMode = SOFT;
         paymentPage.openFormToPayCredit();
         var emptyField = DataGenerator.generateAllEmptyField();
