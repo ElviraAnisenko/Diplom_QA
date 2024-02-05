@@ -25,20 +25,7 @@ public class DataGenerator {
     private String month00 = "00";
     @Getter
     private String empty = "";
-    @Getter
-    private String messageOk = "Операция одобрена Банком.";
-    @Getter
-    private String messageNOk = "Ошибка! Банк отказал в проведении операции.";
-    @Getter
-    private String errorEmpty = "Неверный формат";
-    @Getter
-    private String errorEmptyHolder = "Поле обязательно для заполнения";
-    @Getter
-    private String errorMonth = "Неверно указан срок действия карты";
-    @Getter
-    private String errorExpiredYear = "Истёк срок действия карты";
-    @Getter
-    private String errorNotExistYear = "Неверно указан срок действия карты";
+
 
 
     // генерация значений для поля "Номер карты".

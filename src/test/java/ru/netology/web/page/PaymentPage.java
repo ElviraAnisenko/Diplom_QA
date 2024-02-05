@@ -2,6 +2,7 @@ package ru.netology.web.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import lombok.Getter;
 import org.openqa.selenium.By;
 
 
@@ -13,7 +14,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static ru.netology.web.data.DataGenerator.*;
 
 public class PaymentPage {
-    private SelenideElement buttonPay = $(By.xpath("//span[contains(text(),'Купить')]"));
+        private SelenideElement buttonPay = $(By.xpath("//span[contains(text(),'Купить')]"));
     private SelenideElement buttonPayCredit = $(By.xpath("//span[contains(text(),'Купить в кредит')]"));
     private SelenideElement headingPay = $(By.xpath("//h3[text()='Оплата по карте']"));
     private SelenideElement headingPayCredit = $(By.xpath("//h3[text()='Кредит по данным карты']"));
@@ -33,6 +34,20 @@ public class PaymentPage {
     private SelenideElement fieldErrorHolder = $$(".form-field .input_invalid").findBy(text("Владелец")).find(".input__sub");
     private SelenideElement fieldErrorCVC = $$(".form-field .input_invalid").findBy(text("CVC/CVV")).find(".input__sub");
 
+    @Getter
+    private String messageOk = "Операция одобрена Банком.";
+    @Getter
+    private String messageNotOk = "Ошибка! Банк отказал в проведении операции.";
+    @Getter
+    private String errorEmpty = "Неверный формат";
+    @Getter
+    private String errorEmptyHolder = "Поле обязательно для заполнения";
+    @Getter
+    private String errorMonth = "Неверно указан срок действия карты";
+    @Getter
+    private String errorExpiredYear = "Истёк срок действия карты";
+    @Getter
+    private String errorNotExistYear = "Неверно указан срок действия карты";
 
     public void openFormToPay() {
         buttonPay.click();
@@ -65,7 +80,7 @@ public class PaymentPage {
 
     public void fillFormWithDeclinedOrNonExistingCard(String number, String month, String year, String holder, String cvc, String messageNOk) {
         fillFormWithData(number, month, year, holder, cvc);
-        notificationNOk.shouldBe(visible, Duration.ofSeconds(20)).shouldHave(text(messageNOk));
+        notificationNOk.shouldBe(visible, Duration.ofSeconds(20)).shouldHave(text(messageNotOk));
     }
 
     public void fillFormWithEmptyAllFieldAndThenValidData(Date dateEmpty, Date dateValid) {

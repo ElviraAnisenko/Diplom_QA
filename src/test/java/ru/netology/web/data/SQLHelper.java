@@ -1,11 +1,8 @@
-package ru.netology.web.page;
+package ru.netology.web.data;
 
-import com.mysql.cj.protocol.Resultset;
-import com.mysql.cj.xdevapi.Result;
+
 import lombok.SneakyThrows;
-import org.apache.commons.dbutils.BaseResultSetHandler;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.*;
@@ -17,8 +14,7 @@ public class SQLHelper {
     }
 
     private static Connection getConn() throws SQLException {
-        // return DriverManager.getConnection("jdbc:mysql://185.119.57.126:3306/app", "app", "pass");
-        return DriverManager.getConnection(System.getProperty("db.url"), "app", "pass");
+        return DriverManager.getConnection(System.getProperty("db.url"), System.getProperty("user"), System.getProperty("password"));
     }
 
     @SneakyThrows
