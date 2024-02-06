@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static ru.netology.web.data.DataGenerator.*;
 
 public class PaymentPage {
-        private SelenideElement buttonPay = $(By.xpath("//span[contains(text(),'Купить')]"));
+    private SelenideElement buttonPay = $(By.xpath("//span[contains(text(),'Купить')]"));
     private SelenideElement buttonPayCredit = $(By.xpath("//span[contains(text(),'Купить в кредит')]"));
     private SelenideElement headingPay = $(By.xpath("//h3[text()='Оплата по карте']"));
     private SelenideElement headingPayCredit = $(By.xpath("//h3[text()='Кредит по данным карты']"));
@@ -35,19 +35,19 @@ public class PaymentPage {
     private SelenideElement fieldErrorCVC = $$(".form-field .input_invalid").findBy(text("CVC/CVV")).find(".input__sub");
 
     @Getter
-    private String messageOk = "Операция одобрена Банком.";
+    private final String messageOk = "Операция одобрена Банком.";
     @Getter
-    private String messageNotOk = "Ошибка! Банк отказал в проведении операции.";
+    private final String messageNotOk = "Ошибка! Банк отказал в проведении операции.";
     @Getter
-    private String errorEmpty = "Неверный формат";
+    private final String errorEmpty = "Неверный формат";
     @Getter
-    private String errorEmptyHolder = "Поле обязательно для заполнения";
+    private final String errorEmptyHolder = "Поле обязательно для заполнения";
     @Getter
-    private String errorMonth = "Неверно указан срок действия карты";
+    private final String errorMonth = "Неверно указан срок действия карты";
     @Getter
-    private String errorExpiredYear = "Истёк срок действия карты";
+    private final String errorExpiredYear = "Истёк срок действия карты";
     @Getter
-    private String errorNotExistYear = "Неверно указан срок действия карты";
+    private final String errorNotExistYear = "Неверно указан срок действия карты";
 
     public void openFormToPay() {
         buttonPay.click();
@@ -65,12 +65,15 @@ public class PaymentPage {
         fieldYear.setValue(year);
         fieldHolder.setValue(holder);
         fieldCVC.setValue(cvc);
+        sleep(300);
         buttonContinue.click();
+        sleep(300);
+
     }
 
     public void fillFormWithValidData(String number, String month, String year, String holder, String cvc, String messageOk) {
         fillFormWithData(number, month, year, holder, cvc);
-        notificationOk.shouldBe(visible, Duration.ofSeconds(20)).shouldHave(Condition.text(messageOk));
+        notificationOk.shouldBe(visible, Duration.ofSeconds(15)).shouldHave(Condition.text(messageOk));
     }
 
     public void fillFormWithEmptyOrErrorDataField(String number, String month, String year, String holder, String cvc, String errorOrEmpty) {
@@ -80,7 +83,7 @@ public class PaymentPage {
 
     public void fillFormWithDeclinedOrNonExistingCard(String number, String month, String year, String holder, String cvc, String messageNOk) {
         fillFormWithData(number, month, year, holder, cvc);
-        notificationNOk.shouldBe(visible, Duration.ofSeconds(20)).shouldHave(text(messageNotOk));
+        notificationNOk.shouldBe(visible, Duration.ofSeconds(15)).shouldHave(text(messageNotOk));
     }
 
     public void fillFormWithEmptyAllFieldAndThenValidData(Date dateEmpty, Date dateValid) {

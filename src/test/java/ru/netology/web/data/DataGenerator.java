@@ -66,7 +66,7 @@ public class DataGenerator {
 
 
     public static String generateCardLess16Symbol() {
-        String cardNumber16Symbol = new Faker().finance().creditCard(CreditCardType.VISA);
+        String cardNumber16Symbol = generateCardWith16Symbol();
         int lenghtCard = new Random().nextInt(14) + 1;
         return cardNumber16Symbol.substring(0, lenghtCard);
     }
@@ -75,7 +75,7 @@ public class DataGenerator {
     // генерация значений для полей "Месяц" и "Год".
 
     public static String generateValidDateCard() {
-        int plusMonths = new Random().nextInt(72);
+        int plusMonths = new Random().nextInt(71);
         return LocalDateTime.now().plusMonths(plusMonths).format(DateTimeFormatter.ofPattern("MM.yy"));
     }
 
@@ -107,7 +107,7 @@ public class DataGenerator {
     }
 
     public static String generateMonthMore12() {
-        return String.valueOf(new Random().ints(13, 100));
+        return String.valueOf(new Random().ints(13, 99))+1;
     }
 
     public static String generateMonthOrYearWithInvalidSymbol(List<String> list) {

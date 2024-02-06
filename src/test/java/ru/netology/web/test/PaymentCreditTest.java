@@ -329,18 +329,6 @@ public class PaymentCreditTest {
         paymentPage.fillFormWithEmptyOrErrorDataField(number, month, year, holder, cvc, messageError);
     }
 
-    @Test
-    @DisplayName("Сценарий 1.23 Ввод невалидных значений (буквы, символы) в поле 'CVC/CVV' при запросе покупки тура (переход к форме через кнопку 'Купить')")
-    void sendRequestWithInvalidSymbolInFieldCVCInPayForm() {
-        paymentPage.openFormToPay();
-        var number = dataGenerator.getApprovednumberCard();
-        var month = DataGenerator.getMonthCard(DataGenerator.generateValidDateCard());
-        var year = DataGenerator.getYearCard(DataGenerator.generateValidDateCard());
-        var holder = DataGenerator.generateNameOfHolderCard();
-        var cvc = DataGenerator.generateCVCWithInvalidSymbol(DataGenerator.generateStringWithInvalidSymbol());
-        var messageError = paymentPage.getErrorEmpty();
-        paymentPage.fillFormWithEmptyOrErrorDataField(number, month, year, holder, cvc, messageError);
-    }
 
     @Test
     @DisplayName("Сценарий 1.23 Ввод невалидных значений (буквы, символы) в поле 'CVC/CVV' при запросе покупки тура (переход к форме через кнопку 'Купить в кредит')")
